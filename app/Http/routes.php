@@ -14,3 +14,6 @@
 $app->get('/', function () use ($app) {
     return $app->version();
 });
+
+$app->post('/deploy/', 'DeployController@init');
+$app->post('/deploy/{env}', 'DeployController@init');
