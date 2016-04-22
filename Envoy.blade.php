@@ -1,4 +1,4 @@
-@servers(['web' => 'localhost'])
+{{--@servers(['web' => 'localhost'])--}}
 
 @macro('deploy')
     opening_ceremony
@@ -19,7 +19,7 @@
 @task('shared_init')
     echo shared_init started.
     cd storage/app/_shared
-    git clone git@bitbucket.org:oscillo/oscillo.git ./
+    git clone git@github.com:interestic/sid.git ./
     echo ===current branch list
     git branch -r
     git fetch --prune
