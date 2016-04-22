@@ -30,9 +30,9 @@ class DeployController extends Controller
         echo "{$this->env}: mk symlink.\n";
         $this->mkSymlink($this->env);
         echo "{$this->env}: dir check.\n";
-        $this->mkSymlink($this->env);
+        $this->keepFiveDir($this->env);
         echo "{$this->env}: dir check.\n";
-        $this->mkSymlink($this->env);
+        $this->doDeploy($this->env);
     }
 
     public function mkdirJusttime($env='dev')
