@@ -19,7 +19,7 @@ class DeployController extends Controller
         $this->deploy_dir = $_ENV['DEPLOY_TARGET_DIR'];
     }
 
-    public function init(Request $request, $env)
+    public function init($env='dev')
     {
         $this->env = $env;
         $this->deploy_dir = $this->deploy_dir.$this->env.'/';
