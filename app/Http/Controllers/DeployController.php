@@ -26,18 +26,18 @@ class DeployController extends Controller
 
         echo "{$this->env}: deploy start!\n";
         echo "{$this->env}: make dir.\n";
-        $this->mkdirJusttime();
+        $this->mkdirJusttime($this->env);
         echo "{$this->env}: mk symlink.\n";
-        $this->mkSymlink();
+        $this->mkSymlink($this->env);
         echo "{$this->env}: dir check.\n";
-        $this->mkSymlink();
+        $this->mkSymlink($this->env);
         echo "{$this->env}: dir check.\n";
-        $this->mkSymlink();
+        $this->mkSymlink($this->env);
     }
 
-    public function mkdirJusttime()
+    public function mkdirJusttime($env='dev')
     {
-        $result = mkdir($this->deploy_dir.$this->env.'/' . $this->now);
+        $result = mkdir($this->deploy_dir.$env.'/' . $this->now);
 
         if ($result) {
             return $this->now;
@@ -46,20 +46,20 @@ class DeployController extends Controller
         return false;
     }
 
-    public function mkSymlink()
+    public function mkSymlink($env='dev')
     {
-        if (is_dir($this->deploy_dir.$this->env.'/' . 'current')) {
-            unlink($this->deploy_dir.$this->env.'/' . 'current');
+        if (is_dir($this->deploy_dir.$env.'/' . 'current')) {
+            unlink($this->deploy_dir.$env.'/' . 'current');
         }
 
-        $result = symlink($this->deploy_dir.$this->env.'/' . $this->now, $this->deploy_dir.$this->env.'/' . 'current');
+        $result = symlink($this->deploy_dir.$env.'/' . $this->now, $this->deploy_dir.$env.'/' . 'current');
 
         return $result;
     }
 
-    public function keepFiveDir()
+    public function keepFiveDir($env='dev')
     {
-        $list = scandir($this->deploy_dir.$this->env.'/');
+        $list = scandir($this->deploy_dir.$env.'/');
 
         $cnt = 0;
 
@@ -80,11 +80,11 @@ class DeployController extends Controller
         return ['status' => 'not deleted', 'dir_list' => $dir_list];
     }
 
-    public function doDeploy()
+    public function doDeploy($env='dev')
     {
-        $clone_dir = $this->deploy_dir.$this->env.'/' . $this->now;
+        $clone_dir = $this->deploy_dir.$env.'/' . $this->now;
         $envoy_command = '/vendor/bin/envoy run deploy';
-        $deploy_command = "{$envoy_command} --env={$this->env} --clone_dir={$clone_dir}";
+        $deploy_command = "{$envoy_command} --env={$env} --clone_dir={$clone_dir}";
 
         $process = new Process(base_path() . $deploy_command);
         $process->setTimeout(3600);

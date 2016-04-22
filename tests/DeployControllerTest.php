@@ -19,12 +19,12 @@ class DeployControllerTest extends TestCase
 
     /**
      * init test
-     * @ test
+     * @test
      * @dataProvider for_init_post
      */
     public function init_post($env)
     {
-        $this->post("/deploy/{$env}");
+        $this->post("http://sid.oscillo.interestic.com/deploy/{$env}");
 
         $this->assertEquals(
             $this->response->getContent(), "{$env} deploy start!"
