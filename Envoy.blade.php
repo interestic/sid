@@ -1,8 +1,11 @@
+@setup
+$idt = {{$idt}};
+@endsetup
+
 @servers(['web' => 'localhost'])
 
 @macro('deploy')
     opening_ceremony
-    shared_fetch
     clone_env
     oscillo_setup
 @endmacro
@@ -16,46 +19,12 @@
     echo {{$env}} deploy started.
 @endtask
 
-@task('shared_init')
-    echo shared_init started.
-    cd {{$clone_dir}}
-    cd ../../_shared
-    git clone git@github.com:interestic/sid.git ./
-    echo ===current branch list
-    git branch -r
-    git fetch --prune
-    echo ===current branch
-    git branch -a |grep \*
-    git fetch --prune && git checkout -t origin/stg
-    echo === changed branch
-    git branch -a |grep \*
-    git fetch --prune && git checkout -t origin/prd
-    echo === changed branch
-    git branch -a |grep \*
-    echo ===
-@endtask
-
-@task('shared_fetch')
-    echo _shared repo fetch.
-    cd {{$clone_dir}}
-    cd ../../_shared
-    git fetch --prune
-    echo ===current branch list
-    git branch -r
-    echo ===current branch
-    git branch -a |grep \*
-    git fetch --prune && git checkout origin/{{$env}}
-    echo === changed branch
-    git branch -a |grep \*
-    echo ===
-    cd {{$clone_dir}}
-@endtask
-
 @task('clone_env')
     echo clone to env
     cd {{$clone_dir}}
-    echo clone from _shared
-    git clone ../../_shared ./
+    pwd
+    wget --no-check-certificate https://github.com/interestic/oscillo/archive/{{$env}}.tar.gz
+    echo download complete
 @endtask
 
 @task('oscillo_setup')
