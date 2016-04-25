@@ -13,6 +13,7 @@ class DeployController extends Controller
 
     public function __construct()
     {
+        chdir(base_path());
         $this->env = 'dev';
         $this->now = date('YmdHis');
         $this->deploy_dir = $_ENV['DEPLOY_TARGET_DIR'];
@@ -81,7 +82,6 @@ class DeployController extends Controller
     public function doDeploy($env='dev')
     {
         $clone_dir = $this->deploy_dir.$env.'/' . $this->now;
-        chdir(base_path());
         $envoy_command = '/vendor/bin/envoy run deploy';
         $deploy_command = "{$envoy_command} --env={$env} --clone_dir={$clone_dir}";
 
