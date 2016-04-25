@@ -82,7 +82,7 @@ class DeployController extends Controller
     public function doDeploy($env='dev')
     {
         $clone_dir = $this->deploy_dir.$env.'/' . $this->now;
-        chdir($this->deploy_dir."../../");
+        chdir($this->deploy_dir);
         $envoy_command = '/vendor/bin/envoy run deploy';
         $deploy_command = "{$envoy_command} --env={$env} --clone_dir={$clone_dir}";
 
