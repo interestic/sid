@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use \Illuminate\Filesystem\Filesystem;
-use Illuminate\Http\Request;
 use Symfony\Component\Process\Process;
 
 class DeployController extends Controller
@@ -82,7 +81,7 @@ class DeployController extends Controller
     public function doDeploy($env='dev')
     {
         $clone_dir = $this->deploy_dir.$env.'/' . $this->now;
-        chdir($this->deploy_dir);
+        chdir(base_path());
         $envoy_command = '/vendor/bin/envoy run deploy';
         $deploy_command = "{$envoy_command} --env={$env} --clone_dir={$clone_dir}";
 

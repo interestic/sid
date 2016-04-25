@@ -18,7 +18,8 @@
 
 @task('shared_init')
     echo shared_init started.
-    cd storage/app/_shared
+    cd {{$clone_dir}}
+    cd ../../_shared
     git clone git@github.com:interestic/sid.git ./
     echo ===current branch list
     git branch -r
