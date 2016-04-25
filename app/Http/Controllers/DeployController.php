@@ -61,6 +61,7 @@ class DeployController extends Controller
         $list = scandir($this->deploy_dir.$env.'/');
 
         $cnt = 0;
+        $dir_list =array();
 
         while ($cnt < count($list)) {
             if (!strstr($list[$cnt], '.') && $list[$cnt] != 'current') {
@@ -85,15 +86,18 @@ class DeployController extends Controller
         $envoy_command = '/vendor/bin/envoy run deploy';
         $deploy_command = "{$envoy_command} --env={$env} --clone_dir={$clone_dir}";
 
+        $this->out = null;
         $process = new Process(base_path() . $deploy_command);
         $process->setTimeout(3600);
         $process->setIdleTimeout(300);
-        $process->setWorkingDirectory($this->now);
+        $process->setWorkingDirectory(base_path());
         echo "\n";
         $process->run(function ($type, $buffer) {
-            echo $type;
-            echo $buffer;
+            $this->out[] = $type.$buffer."\n";
         });
+
+        var_dump($this->out);
+        return $this->out;
 
     }
 

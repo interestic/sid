@@ -20,7 +20,7 @@ class DeployControllerTest extends TestCase
 
     /**
      * init test
-     * @ test
+     * @test
      * @dataProvider for_init_post
      */
     public function init_post($env)

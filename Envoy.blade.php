@@ -1,4 +1,4 @@
-{{--@servers(['web' => 'localhost'])--}}
+{{--@servers(['web' => '127.0.0.1'])--}}
 
 @macro('deploy')
     opening_ceremony
