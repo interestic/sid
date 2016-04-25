@@ -15,5 +15,6 @@ $app->get('/', function () use ($app) {
     return 'Never Mind the Bollocks!';
 });
 
+$app->get('/deploy/', 'DeployController@init');
 $app->post('/deploy/', 'DeployController@init');
 $app->post('/deploy/{env}', 'DeployController@init');

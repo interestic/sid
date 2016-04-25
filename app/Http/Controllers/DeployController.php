@@ -22,7 +22,6 @@ class DeployController extends Controller
     public function init($env='dev')
     {
         $this->env = $env;
-        $this->deploy_dir = $this->deploy_dir.$this->env.'/';
 
         echo "{$this->env}: deploy start!\n";
         echo "{$this->env}: make dir.\n";
@@ -31,7 +30,7 @@ class DeployController extends Controller
         $this->mkSymlink($this->env);
         echo "{$this->env}: dir check.\n";
         $this->keepFiveDir($this->env);
-        echo "{$this->env}: dir check.\n";
+        echo "{$this->env}: do deploy.\n";
         $this->doDeploy($this->env);
     }
 
@@ -83,6 +82,7 @@ class DeployController extends Controller
     public function doDeploy($env='dev')
     {
         $clone_dir = $this->deploy_dir.$env.'/' . $this->now;
+        chdir($this->deploy_dir."../../");
         $envoy_command = '/vendor/bin/envoy run deploy';
         $deploy_command = "{$envoy_command} --env={$env} --clone_dir={$clone_dir}";
 
