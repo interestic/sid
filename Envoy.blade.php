@@ -29,6 +29,6 @@
 @task('oscillo_setup')
     echo setup oscillo
     cd {{$clone_dir}}
-    tar xvzf {{$env}}.tar.gz ./ && rm -f {{$env}}.tar.gz
+    tar -xzf {{$env}}.tar.gz && rm -f {{$env}}.tar.gz && mv oscillo-dev/* ./ && rm -rf oscillo-dev
     /usr/local/bin/composer install
 @endtask
