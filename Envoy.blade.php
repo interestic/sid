@@ -29,5 +29,6 @@
 @task('oscillo_setup')
     echo setup oscillo
     cd {{$clone_dir}}
-    composer install
+    tar xvzf {{$env}}.tar.gz ./ && rm -f {{$env}}.tar.gz
+    /usr/local/bin/composer install
 @endtask
