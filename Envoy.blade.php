@@ -1,5 +1,4 @@
 @setup
-$idt = {{$idt}};
 @endsetup
 
 @servers(['web' => 'localhost'])
