@@ -16,7 +16,7 @@ class DeployController extends Controller
         chdir(base_path());
         $this->env = 'dev';
         $this->now = date('YmdHis');
-        $this->deploy_dir = $_ENV['DEPLOY_TARGET_DIR'];
+        $this->deploy_dir = isset($_ENV['DEPLOY_TARGET_DIR'])?$_ENV['DEPLOY_TARGET_DIR']:'storage/app';
     }
 
     public function init($env='dev')
