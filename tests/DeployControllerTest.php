@@ -1,10 +1,12 @@
 <?php
 
 use App\Http\Controllers\DeployController;
+
 class DeployControllerTest extends TestCase
 {
 
     public static $deploy_dir = null;
+
     public static function setUpBeforeClass()
     {
         parent::setUpBeforeClass();
@@ -31,7 +33,8 @@ class DeployControllerTest extends TestCase
         );
     }
 
-    public function for_init_post(){
+    public function for_init_post()
+    {
         return [
             ['dev'],
             ['stg'],
@@ -46,14 +49,15 @@ class DeployControllerTest extends TestCase
     public function mkdirJusttime()
     {
 
-        $this->assertEquals($this->deploy->now,$this->deploy->mkdirJusttime());
+        $this->assertEquals($this->deploy->now, $this->deploy->mkdirJusttime());
     }
 
     /**
      * mksymlink test
      * @test
      */
-    public function mkSymlink(){
+    public function mkSymlink()
+    {
         $this->assertTrue($this->deploy->mkSymlink());
     }
 
@@ -61,13 +65,14 @@ class DeployControllerTest extends TestCase
      * keepFiveDir test
      * @test
      */
-    public function keepFiveDir(){
+    public function keepFiveDir()
+    {
         $result = $this->deploy->keepFiveDir();
-        if(count($result['dir_list'])>5){
-            $this->assertEquals('deleted',$result['status']);
-            $this->assertEquals($this->deploy->now,$result['dir_list'][5]);
-        }else{
-            $this->assertEquals('not deleted',$result['status']);
+        if (count($result['dir_list']) > 5) {
+            $this->assertEquals('deleted', $result['status']);
+            $this->assertEquals($this->deploy->now, $result['dir_list'][5]);
+        } else {
+            $this->assertEquals('not deleted', $result['status']);
         }
     }
 
@@ -75,7 +80,20 @@ class DeployControllerTest extends TestCase
      * doDeploy test
      * @ test
      */
-    public function doDeploy(){
+    public function doDeploy()
+    {
         $this->deploy->doDeploy();
+    }
+
+    /**
+     * @test
+     */
+    public function payloadCheck()
+    {
+        $payload_string = file_get_contents(base_path() . '/tests/payload.json');
+        $payload_array = json_decode($payload_string, true);
+
+        $this->deploy->payloadCheck();
+
     }
 }

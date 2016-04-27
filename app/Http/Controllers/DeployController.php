@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use \Illuminate\Filesystem\Filesystem;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Http\Request;
 use Symfony\Component\Process\Process;
 
 class DeployController extends Controller
@@ -17,6 +19,32 @@ class DeployController extends Controller
         $this->env = 'dev';
         $this->now = date('YmdHis');
         $this->deploy_dir = isset($_ENV['DEPLOY_TARGET_DIR'])?$_ENV['DEPLOY_TARGET_DIR']:'/home/travis/build/interestic/sid/storage/app/';
+    }
+
+    public function payloadCheck(){
+
+        Log::info(__FUNCTION__);
+
+        $request = new Request();
+        Log::info(var_export($request,true));
+
+//        $payload_array = json_decode($payload_string,true);
+//
+//        //pull_request trigger
+//        if(isset($payload_array['pull_request'])){
+//            $pull_request = $payload_array['pull_request'];
+//
+//            $merged = $pull_request['merged'];
+//            $ref = $pull_request['base']['ref'];
+//
+//            if($merged){
+//                return $ref;
+//            }
+//
+//        }else{//deploy success trigger
+//
+//        }
+//        return false;
     }
 
     public function init($env='dev')
