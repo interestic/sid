@@ -21,35 +21,36 @@ class DeployController extends Controller
         $this->deploy_dir = isset($_ENV['DEPLOY_TARGET_DIR'])?$_ENV['DEPLOY_TARGET_DIR']:'/home/travis/build/interestic/sid/storage/app/';
     }
 
-    public function payloadCheck(){
+    public function payloadCheck($payload_string){
 
-        Log::info(__FUNCTION__);
+        $payload_array = json_decode($payload_string,true);
 
-        $request = new Request();
-        Log::info(var_export($request,true));
+        //pull_request trigger
+        if(isset($payload_array['pull_request'])){
+            $pull_request = $payload_array['pull_request'];
 
-//        $payload_array = json_decode($payload_string,true);
-//
-//        //pull_request trigger
-//        if(isset($payload_array['pull_request'])){
-//            $pull_request = $payload_array['pull_request'];
-//
-//            $merged = $pull_request['merged'];
-//            $ref = $pull_request['base']['ref'];
-//
-//            if($merged){
-//                return $ref;
-//            }
-//
-//        }else{//deploy success trigger
-//
-//        }
-//        return false;
+            $merged = $pull_request['merged'];
+            $ref = $pull_request['base']['ref'];
+
+            if($merged){
+                return $ref;
+            }
+
+        }else{//deploy success trigger
+
+        }
+        return false;
     }
 
-    public function init($env='dev')
+    public function init(Request $request, $env='dev')
     {
-        $this->env = $env;
+        $result = $this->payloadCheck($request->get('payload'));
+
+        if($result){
+            $this->env = $env;
+        }else{
+            return false;
+        }
 
         echo "{$this->env}: deploy start!\n";
         echo "{$this->env}: make dir.\n";

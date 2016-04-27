@@ -93,7 +93,9 @@ class DeployControllerTest extends TestCase
         $payload_string = file_get_contents(base_path() . '/tests/payload.json');
         $payload_array = json_decode($payload_string, true);
 
-        $this->deploy->payloadCheck();
+        $result = $this->deploy->payloadCheck($payload_string);
+
+        $this->assertTrue(!$result);
 
     }
 }
