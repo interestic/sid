@@ -87,13 +87,42 @@ class DeployControllerTest extends TestCase
 
     /**
      * @test
+     * @dataProvider for_payloadCheck_false
      */
-    public function payloadCheck()
+    public function payloadCheck_fase($status){
+        $payload_string_false = file_get_contents(base_path() . "/tests/payload_merge_{$status}.json");
+
+        $result = $this->deploy->payloadCheck($payload_string_false);
+
+        $this->assertTrue(!$result);
+    }
+
+    public function for_payloadCheck_false(){
+        return [
+            ['false'],
+            ['blank']
+        ];
+    }
+
+    /**
+     * @test
+     * @dataProvider for_payloadCheck_true
+     */
+    public function payloadCheck_true($env)
     {
-        $payload_string = file_get_contents(base_path() . '/tests/payload.json');
-        $payload_array = json_decode($payload_string, true);
+        $payload_string_true = file_get_contents(base_path() . "/tests/payload_merge_true_{$env}.json");
 
-        $this->deploy->payloadCheck();
+        $result = $this->deploy->payloadCheck($payload_string_true);
 
+        $this->assertEquals($env,$result);
+
+    }
+
+    public function for_payloadCheck_true(){
+        return [
+            ['dev'],
+            ['stg'],
+            ['prd']
+        ];
     }
 }
