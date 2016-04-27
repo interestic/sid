@@ -5,6 +5,7 @@ php:
 before_script:
   - composer self-update
   - composer install
+  - mkdir storage/app/dev
   - chmod -R 777 storage
 
 script:
