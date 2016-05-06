@@ -9,6 +9,7 @@
     {{--setup_composer--}}
     copy_vendor
     copy_env
+    migration_database
     {{--composer_update--}}
 @endmacro
 
@@ -69,6 +70,13 @@ cp -rp ../../_shared/.env ./
     php composer.phar -v update
 @endtask
 
+@task('migration_database')
+    echo migration Database
+    cd {{$clone_dir}}
+
+    php artisan migrate
+@endtask
+
 @after
-    @slack('https://hooks.slack.com/services/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', '#app', "$task ran on [$env]")
+    @slack('https://hooks.slack.com/services/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', '#app', "$task run on [$env]")
 @endafter

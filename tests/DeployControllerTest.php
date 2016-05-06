@@ -82,6 +82,7 @@ class DeployControllerTest extends TestCase
      */
     public function doDeploy()
     {
+        chdir('./storage/app/dev');
         $this->deploy->doDeploy();
     }
 
