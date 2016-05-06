@@ -77,6 +77,13 @@ cp -rp ../../_shared/.env ./
     php artisan migrate
 @endtask
 
+@task('asset setup')
+    echo asset setup
+    npm install
+    bower install
+    gulp
+@endtask
+
 @after
     @slack('https://hooks.slack.com/services/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', '#app', "$task run on [$env]")
 @endafter
