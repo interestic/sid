@@ -6,9 +6,10 @@
 @macro('deploy')
     opening_ceremony
     download_source
-    setup_composer
+    {{--setup_composer--}}
     copy_vendor
-    composer_update
+    copy_env
+    {{--composer_update--}}
 @endmacro
 
 @macro('shared_init')
@@ -45,6 +46,13 @@
     cd {{$clone_dir}}
 
     cp -rp ../../_shared/vendor ./
+@endtask
+
+@task('copy_env')
+echo copy .env file
+cd {{$clone_dir}}
+
+cp -rp ../../_shared/.env ./
 @endtask
 
 @task('composer_install')
