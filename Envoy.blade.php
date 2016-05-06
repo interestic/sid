@@ -10,6 +10,7 @@
     copy_vendor
     copy_env
     migration_database
+    asset_setup
     {{--composer_update--}}
 @endmacro
 
@@ -77,7 +78,7 @@ cp -rp ../../_shared/.env ./
     php artisan migrate
 @endtask
 
-@task('asset setup')
+@task('asset_setup')
     echo asset setup
     npm install
     bower install
