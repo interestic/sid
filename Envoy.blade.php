@@ -80,6 +80,7 @@ cp -rp ../../_shared/.env ./
 
 @task('asset_setup')
     echo asset setup
+    cd {{$clone_dir}}
     npm install
     bower install
     gulp
