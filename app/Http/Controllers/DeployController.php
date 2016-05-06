@@ -49,7 +49,9 @@ class DeployController extends Controller
         if($result){
             $this->env = $env;
         }else{
-            return false;
+            //FIXME cancel action reserved
+//            echo 'deploy canceled';
+//            exit;
         }
 
         echo "{$this->env}: deploy start!\n";
