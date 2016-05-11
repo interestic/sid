@@ -83,8 +83,8 @@
     cd {{$clone_dir}}/../../_shared
     gulp
     cd {{$clone_dir}}/public
-    cp -rp {{$clone_dir}}/../../_shared/public/js ./
-    cp -rp {{$clone_dir}}/../../_shared/public/css ./
+    cp -rp ../../_shared/public/js ./
+    cp -rp ../../_shared/public/css ./
 @endtask
 
 @after
