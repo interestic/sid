@@ -11,6 +11,7 @@
     copy_env
     migration_database
     exec_shared_gulp_and_static_copy
+    endroll
     {{--composer_update--}}
 @endmacro
 
@@ -21,6 +22,10 @@
 @task('opening_ceremony')
     echo host connected!
     echo {{$env}} deploy started.
+@endtask
+
+@task('endroll')
+echo {{$env}} deploy complete.
 @endtask
 
 @task('download_source')
