@@ -10,7 +10,7 @@
     copy_vendor
     copy_env
     migration_database
-    asset_setup
+    exec_shared_gulp_and_static_copy
     {{--composer_update--}}
 @endmacro
 
@@ -51,10 +51,10 @@
 @endtask
 
 @task('copy_env')
-echo copy .env file
-cd {{$clone_dir}}
+    echo copy .env file
+    cd {{$clone_dir}}
 
-cp -rp ../../_shared/.env ./
+    cp -rp ../../_shared/.env ./
 @endtask
 
 @task('composer_install')
@@ -78,12 +78,13 @@ cp -rp ../../_shared/.env ./
     php artisan migrate
 @endtask
 
-@task('asset_setup')
+@task('exec_shared_gulp_and_static_copy')
     echo asset setup
-    cd {{$clone_dir}}
-    npm install
-    bower install
+    cd {{$clone_dir}}/../../_shared
     gulp
+    cd {{$clone_dir}}/public
+    cp -rp {{$clone_dir}}/../../_shared/public/js ./
+    cp -rp {{$clone_dir}}/../../_shared/public/css ./
 @endtask
 
 @after
