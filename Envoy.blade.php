@@ -34,7 +34,7 @@ echo {{$env}} deploy complete.
     pwd
     wget --no-check-certificate https://github.com/interestic/oscillo/archive/{{$env}}.tar.gz
     echo download complete
-    tar -xzf {{$env}}.tar.gz && rm -f {{$env}}.tar.gz && mv oscillo-dev/* ./ && rm -rf oscillo-dev
+    tar -xzf {{$env}}.tar.gz && rm -f {{$env}}.tar.gz && mv oscillo-{{$env}}/* ./ && rm -rf oscillo-{{$env}}
 @endtask
 
 @task('setup_composer')
