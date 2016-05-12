@@ -47,11 +47,11 @@ class DeployController extends Controller
         $result = $this->payloadCheck($request->get('payload'));
 
         if($result){
-            $this->env = $env;
+            $this->env = $result;
         }else{
             //FIXME cancel action reserved
-//            echo 'deploy canceled';
-//            exit;
+            echo 'deploy canceled. not merged repo';
+            return;
         }
 
         echo "{$this->env}: deploy start!\n";
