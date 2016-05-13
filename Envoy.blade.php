@@ -59,7 +59,7 @@ echo {{$env}} deploy complete.
     echo copy .env file
     cd {{$clone_dir}}
 
-    cp -rp ../../_shared/.env_{{$env}} ./
+    cp -rp ../../_shared/.env_{{$env}} ./.env
 @endtask
 
 @task('composer_install')
